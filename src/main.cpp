@@ -5,6 +5,7 @@
 #include <SDL2/SDL_mixer.h>
 
 #include <Engine.h>
+#include <PlayScreen.h>
 
 int SDLCheck() {
     std::cout << "-----------------------------------------------------------" << std::endl;
@@ -55,12 +56,12 @@ int SDLCheck() {
 }
 
 int main() {
-    SDLCheck();
-
     Engine* engine = Engine::GetInstance();
     // TODO: create screen and set current screen
+    engine->SetScreen(new PlayScreen());
     engine->DoGameLoop();
 
     delete engine;
     std::cout << "Exiting game!" << std::endl;
+    return 0;
 }
