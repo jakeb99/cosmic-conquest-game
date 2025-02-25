@@ -5,7 +5,7 @@
 #include <Player.h>
 
 Player::Player() : _rotateSpeed(12.0), _moveSpeed(4), _shootRate(20), _bulletSpeed(10) {
-    _spriteSurface = IMG_Load("player.png");
+    _spriteSurface = IMG_Load("../assets/player.png");
     if (_spriteSurface == NULL) {
         std::cerr << "IMG_Load Error: " << IMG_GetError() << std::endl;
         exit(1);
@@ -111,9 +111,8 @@ void Player::Update() {
     double directionX = sin(rotationRads);
     double directionY = -cos(rotationRads);
 
-
-    double prevVelX = _velocityX;
-    double prevVelY = _velocityY;
+    // double prevVelX = _velocityX;
+    // double prevVelY = _velocityY;
 
     // accelerate with W
     if (keyBoardState[SDL_SCANCODE_W]) {
@@ -123,12 +122,11 @@ void Player::Update() {
     
     _localX = _velocityX;
     _localY = _velocityY;
-
+    
     // only set position if we are inside the screen boundries
     if (_localX > 0 && _localX < _xClamp && _localY > 0 && _localY < _yClamp)
         SetPosition(_localX, _localY);
-    else
-        SetPosition(_localX + 1, _localY + 1);
+    
 }
 
 void Player::Draw() {
