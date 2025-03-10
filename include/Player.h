@@ -19,7 +19,8 @@
 class Player {
     private:
         const double _rotateSpeed;       
-        const double _moveSpeed;         
+        const double _moveSpeed;   
+        const double _maxVelocity;      
         const int _shootRate;            
         const int _bulletSpeed;
 
@@ -36,6 +37,8 @@ class Player {
         int _health;          
         int _xClamp;
         int _yClamp;           
+
+        bool PlayerInScreenBounds();
 
     public:
         Player();                       

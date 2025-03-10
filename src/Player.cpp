@@ -4,7 +4,7 @@
 
 #include <Player.h>
 
-Player::Player() : _rotateSpeed(12.0), _moveSpeed(4), _shootRate(20), _bulletSpeed(10) {
+Player::Player() : _rotateSpeed(12.0), _moveSpeed(2), _maxVelocity(5), _shootRate(20), _bulletSpeed(10) {
     _spriteSurface = IMG_Load("../assets/player.png");
     if (_spriteSurface == NULL) {
         std::cerr << "IMG_Load Error: " << IMG_GetError() << std::endl;
@@ -43,7 +43,7 @@ Player::Player() : _rotateSpeed(12.0), _moveSpeed(4), _shootRate(20), _bulletSpe
     _canShoot = true;
     _shotRecharge = 0;
 
-    _health = 3;
+    _health = 10;
 
 }
 
@@ -111,8 +111,8 @@ void Player::Update() {
     double directionX = sin(rotationRads);
     double directionY = -cos(rotationRads);
 
-    // double prevVelX = _velocityX;
-    // double prevVelY = _velocityY;
+    double prevLocalX = _localX;
+    double prevLocalY = _localY;
 
     // accelerate with W
     if (keyBoardState[SDL_SCANCODE_W]) {
@@ -120,13 +120,24 @@ void Player::Update() {
         _velocityY += directionY * _moveSpeed;
     }
     
-    _localX = _velocityX;
-    _localY = _velocityY;
+    std::cout << "VelocityX:" << _velocityX << ", VelocityY: " << _velocityY << std::endl;
+    std::cout << "(" << _localX << ", " << _localY << ")" << std::endl;
     
     // only set position if we are inside the screen boundries
-    if (_localX > 0 && _localX < _xClamp && _localY > 0 && _localY < _yClamp)
+    if (PlayerInScreenBounds()) {
+        _localX += _velocityX;
+        _localY += _velocityY;  
         SetPosition(_localX, _localY);
+        std::cout << "Set Pos: (" << _localX << ", " << _localY << ")" << std::endl;
+    } else {
+        _velocityX = _velocityY = 0;
+        SetPosition(prevLocalX, prevLocalY);
+    }
     
+}
+
+bool Player::PlayerInScreenBounds() {
+    return _localX + _velocityX >= 0 && _localX + _velocityX <= _xClamp && _localY + _velocityY >= 0 && _localY + _velocityY <= _yClamp;
 }
 
 void Player::Draw() {
