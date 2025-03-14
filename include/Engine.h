@@ -32,4 +32,6 @@ class Engine {
         void DoGameLoop();
 
         void SetScreen(Screen *screen);
+
+        void ExitGame();
 };

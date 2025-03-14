@@ -33,6 +33,7 @@ Engine::Engine() {
 }
 
 Engine::~Engine() {
+    std::cout << "Exiting!!";
     SetScreen(NULL);
     SDL_DestroyRenderer(_renderer);
     SDL_DestroyWindow(_window);
@@ -104,4 +105,9 @@ void Engine::PollEvents() {
                 break;
         }
     }
+}
+
+void Engine::ExitGame() {
+    delete this;
+    exit(0);
 }
