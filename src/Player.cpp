@@ -26,14 +26,14 @@ Player::Player() : _rotateSpeed(12.0), _moveSpeed(2), _maxVelocity(5), _shootRat
 
     std::cout << _sprite << std::endl;
 
-    _destinationRect.x = 0;
-    _destinationRect.y = 0;
+    // _destinationRect.x = 0;
+    // _destinationRect.y = 0;
     _destinationRect.w = (float)width;
     _destinationRect.h = (float)height;
 
     _rotation = 0;
-    _localX = 0;
-    _localY = 0;
+    // _localX = 0;
+    // _localY = 0;
     _velocityX = 0;
     _velocityY = 0;
 
@@ -80,6 +80,8 @@ int Player::GetLocalY() const {
 void Player::SetPosition(int x, int y) {
     _destinationRect.x = x;
     _destinationRect.y = y;
+    _localX = x;
+    _localY = y;
 }
 
 int Player::GetHealth() const {
