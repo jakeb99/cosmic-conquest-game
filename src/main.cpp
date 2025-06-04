@@ -13,7 +13,6 @@ int main() {
         std::cerr << "ERROR Failed to init sdl TTF: " << TTF_GetError() << std::endl;
     }
     Engine* engine = Engine::GetInstance();
-    // TODO: create screen and set current screen
     engine->SetScreen(new MainMenuScreen());
     engine->DoGameLoop();
 

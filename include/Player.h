@@ -7,7 +7,7 @@
 #include <SDL2/SDL_image.h>
 
 #include <Engine.h>
-// #include <Bullet.h>
+#include <Bullet.h>
 
 /**
  * Player Class
@@ -32,6 +32,7 @@ class Player {
         double _localY;                  /** The current y-coordinate of the player sprite on the playerscreen */
         double _velocityX;               /** The current the current velocity of the player sprite along the x-axis of the playerscreen */
         double _velocityY;               /** The current the current velocity of the player sprite along the x-axis of the playerscreen */
+        
         int _shotRecharge;               /** The timer that determines how long until the player can fire another bullet */
         bool _canShoot;                  
         int _health;          
@@ -41,9 +42,10 @@ class Player {
         bool PlayerInScreenBounds();
 
     public:
+        
         Player();                       
         ~Player();          
-
+        std::vector<Bullet*> bullets;   /** vector of bullets */
         SDL_Rect GetBounds() const;      /** The function that returns the rectangle associated with the player sprite */
         int GetCenterX() const;          /** Returns the current x-coordinate of the center of the player sprite on the playscreen */
         int GetCenterY() const;          /** Returns the current y-coordinate of the center of the player sprite on the playscreen */

@@ -107,6 +107,11 @@ void Player::Update() {
     if (_rotation <= -360) {
         _rotation += 360;
     }
+    if (keyBoardState[SDL_SCANCODE_SPACE]) {
+        std::cout << "shooting" << std::endl;
+        Bullet *b = new Bullet();
+        bullets.push_back(b);
+    }
     
     // get direction we are facing
     double rotationRads = _rotation * (M_PI / 180);
@@ -122,15 +127,15 @@ void Player::Update() {
         _velocityY += directionY * _moveSpeed;
     }
     
-    std::cout << "VelocityX:" << _velocityX << ", VelocityY: " << _velocityY << std::endl;
-    std::cout << "(" << _localX << ", " << _localY << ")" << std::endl;
+    // std::cout << "VelocityX:" << _velocityX << ", VelocityY: " << _velocityY << std::endl;
+    // std::cout << "(" << _localX << ", " << _localY << ")" << std::endl;
     
     // only set position if we are inside the screen boundries
     if (PlayerInScreenBounds()) {
         _localX += _velocityX;
         _localY += _velocityY;  
         SetPosition(_localX, _localY);
-        std::cout << "Set Pos: (" << _localX << ", " << _localY << ")" << std::endl;
+        // std::cout << "Set Pos: (" << _localX << ", " << _localY << ")" << std::endl;
     } else {
         _velocityX = _velocityY = 0;
         SetPosition(prevLocalX, prevLocalY);
